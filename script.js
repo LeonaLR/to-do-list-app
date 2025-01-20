@@ -4,17 +4,39 @@ const clear = document.querySelector(".clear")
 const dateElement = document.querySelector("#date")
 const list = document.querySelector("#list")
 const input = document.querySelector("#input")
+const header = document.querySelector(".header")//for pictures change
 
 
 
 //Variables:
 let LIST = [] //data stored
 let id
+const images =[
+    'img/bg1.jpg',
+    'img/bg2.jpg',
+    'img/bg3.jpg',
+    'img/bg4.jpg'
+]
 
 //Classes names
 const CHECK = "fa-check-circle"
 const UNCHECK = "fa-circle-thin"
 const LINE_THROUGH = "lineThrough"
+
+
+//change background images automatically:
+let currentIndex = 0
+function changeBackground(){
+    header.style.backgroundImage = `url(${images[currentIndex]})`
+    currentIndex = (currentIndex + 1) % images.length// Loop back to the first image
+}
+
+// Change background every 5 seconds (5000 milliseconds)
+setInterval(changeBackground, 5000)
+// Initial call to set the first background
+changeBackground()
+
+
     
 //show today's date:
 const options = {weekday:"long", month:"short", day:"numeric"}
@@ -112,8 +134,8 @@ function removeToDo(element) {
 
 
 
-//事件委托：because <li></li> are dynamic:
-// Event delegation for dynamic elements
+
+// Event delegation for dynamic elements : because <li></li> are dynamic:
 list.addEventListener("click", function (e) {
     if (!e.target.dataset.job) return // Check if job attribute exists
 
